@@ -29,7 +29,7 @@ if __name__ == "__main__":
     print(make_tape("101"))
     print(make_tape(""))
 
-    #write_cell
+    #read cell
     print(read_cell(['1', '0', '1'], 1))
     print(read_cell([],0))
 
@@ -40,4 +40,8 @@ if __name__ == "__main__":
 
     t = ['1', '0', '1']
     write_cell(t, 2, 'X')
+    print(t)
+
+    t = ['1', '0', '1']
+    write_cell(t, 0, BLANK)
     print(t)
