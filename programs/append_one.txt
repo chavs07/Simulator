@@ -1,0 +1,8 @@
+
+Testing
+
+scan:   IF_GOTO append
+        RIGHT
+        GOTO scan
+append: WRITE 1
+        HALT
