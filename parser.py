@@ -37,7 +37,7 @@ if __name__ == "__main__":
     #    print(line)
 
     lines = read_program_file("programs/append_one.txt")
-    for item in parse_program(lines):
+    for item in parse_lines(lines):
         print(item)
 
     # clean_line
