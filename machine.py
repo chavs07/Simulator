@@ -1,1 +1,1 @@
-"Ang state"
+"Ang state, execute sa mg commands/run"

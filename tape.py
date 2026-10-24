@@ -1,1 +1,1 @@
-"Pag create sa tape, read and write"
+"Pag create sa tape/mo pataas, read and write"
