@@ -82,6 +82,12 @@ def build_labels(items):
             labels[label] = index
     return labels
 
+def check_targets(instructions, labels):
+    # checks if all the targets in the instructions are valid labels or naa ba sa labels table
+    for item in instructions:
+        target = item['target']
+        if target is not None and target not in labels:
+            raise ValueError(f"Line {item['line']}: undefined label '{target}'")
      
 # My testing
 if __name__ == "__main__":
@@ -132,8 +138,12 @@ if __name__ == "__main__":
 
     print()
     #build_labels
+    items = parse_lines(read_program_file("programs/append_one.txt"))
+    print(build_labels(items))
     try:
         build_labels([{'line': 1, 'label': 'loop', 'tokens': ['RIGHT']},
                   {'line': 2, 'label': 'loop', 'tokens': ['HALT']}])
     except ValueError as e:
         print(e) #line 2: duplicate label 'loop'
+
+    #check_targets
