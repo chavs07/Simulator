@@ -71,25 +71,39 @@ def check_instruction(item):
 
     return instruction
 
+def build_labels(items):
+    # Himuon ang labels table, name sa label to index sa instruction
+    labels = {}
+    for index, item in enumerate(items):
+        label = item['label']
+        if label is not None:
+            if label in labels:
+                raise ValueError(f"Line {item['line']}: duplicate label '{label}'")
+            labels[label] = index
+    return labels
+
      
 # My testing
 if __name__ == "__main__":
-    #lines = read_program_file("programs/append_one.txt")
-    #for line in lines:
-    #    print(line)
+    lines = read_program_file("programs/append_one.txt")
+    for line in lines:
+        print(line)
 
     lines = read_program_file("programs/append_one.txt")
     for item in parse_lines(lines):
         print(item)
 
+    print()
     # clean_line
     print(repr(clean_line("RIGHT  # move")))
     print(repr(clean_line(" # comment only ")))
 
+    print()
     # split_label
     print(split_label("start: RIGHT"))
     print(split_label("RIGHT"))
 
+    print()
     # check_symbol
     check_symbol("1", 2)
     try:
@@ -97,6 +111,7 @@ if __name__ == "__main__":
     except ValueError as e:
         print(e)
 
+    print()
     # check_instruction
     print(check_instruction({"line": 5, "label": None, "tokens": ["RIGHT"]}))
     # {'op': 'RIGHT', 'symbol': None, 'target': None, 'line': 5}
@@ -115,3 +130,10 @@ if __name__ == "__main__":
     except ValueError as e:
         print(e) #line 6: unknown instruction 'IF _ GOTO' walay label s
 
+    print()
+    #build_labels
+    try:
+        build_labels([{'line': 1, 'label': 'loop', 'tokens': ['RIGHT']},
+                  {'line': 2, 'label': 'loop', 'tokens': ['HALT']}])
+    except ValueError as e:
+        print(e) #line 2: duplicate label 'loop'
