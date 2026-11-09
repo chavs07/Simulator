@@ -88,7 +88,24 @@ def check_targets(instructions, labels):
         target = item['target']
         if target is not None and target not in labels:
             raise ValueError(f"Line {item['line']}: undefined label '{target}'")
-     
+
+def parse_program(path):
+    # Basahon ug i validate anf tibuok program file, return the instructions and labels table
+    lines = read_program_file(path)
+    items = parse_lines(lines)
+
+    if len(items) == 0:
+        raise ValueError("Program is empty")
+    
+    instructions = []
+    for item in items:
+        instructions.append(check_instruction(item))
+
+    labels = build_labels(items)
+    check_targets(instructions, labels)
+    return instructions, labels
+
+
 # My testing
 if __name__ == "__main__":
     lines = read_program_file("programs/append_one.txt")
@@ -147,3 +164,15 @@ if __name__ == "__main__":
         print(e) #line 2: duplicate label 'loop'
 
     #check_targets
+
+    
+    print("\n--- parse_program ---")
+    instructions, labels = parse_program("programs/append_one.txt")
+    for item in instructions:
+        print(item)
+    print(labels)
+
+    try:
+        parse_program("programs/bad_label.txt")
+    except ValueError as e:
+        print(e) #line 3: undefined label 'nowhere'
