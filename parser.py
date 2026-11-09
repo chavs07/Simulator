@@ -175,4 +175,4 @@ if __name__ == "__main__":
     try:
         parse_program("programs/bad_label.txt")
     except ValueError as e:
-        print(e) #line 3: undefined label 'nowhere'
+        print(e) #line 1: undefined label 'nowhere'
