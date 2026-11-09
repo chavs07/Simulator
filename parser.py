@@ -48,6 +48,17 @@ def check_instruction(item):
     if op == "LEFT" or op == "RIGHT" or op == "HALT":
         if len(tokens) != 1:
             raise ValueError(f"Line {line}: '{op}' takes no arguments")
+    elif op == "WRITE":
+        if len(tokens) != 2:
+            raise ValueError(f"Line {line}: use WRITE symbol")
+        check_symbol(tokens[1], line)
+        instruction['symbol'] = tokens[1]
+    
+    elif op == "GOTO":
+        if len(tokens) !=2:
+            raise ValueError(f"Line {line}: use GOTO label")
+        instruction['target'] = tokens[1]
+
     else:
         raise ValueError(f"Line {line}: unknown instruction '{op}'")
 
@@ -87,3 +98,6 @@ if __name__ == "__main__":
         check_instruction({"line": 3, "label": None, "tokens": ["Right"]})
     except ValueError as e:
         print(e) #line 3: unknown instruction 'Right'
+
+    print(check_instruction({"line": 7, "label": None, "tokens": ["WRITE", "1"]}))
+
