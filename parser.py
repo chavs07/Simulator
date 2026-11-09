@@ -29,6 +29,10 @@ def parse_lines(lines):
         result.append({'line': number, 'label': label, 'tokens': tokens})
     return result
 
+def check_symbol(symbol, line):
+    # I check if ang symbol is valid / must 1 letter
+    if len(symbol) != 1:
+        raise ValueError(f"Line{line}: symbol must be one character, got '{symbol}'")
      
 # My testing
 if __name__ == "__main__":
@@ -48,4 +52,10 @@ if __name__ == "__main__":
     print(split_label("start: RIGHT"))
     print(split_label("RIGHT"))
 
-    
+    # check_symbol
+    check_symbol("1", 2)
+    try:
+        check_symbol("10", 4)
+    except ValueError as e:
+        print(e)
+        
