@@ -58,6 +58,13 @@ def check_instruction(item):
         if len(tokens) !=2:
             raise ValueError(f"Line {line}: use GOTO label")
         instruction['target'] = tokens[1]
+    
+    elif op == "IF":
+        if len(tokens) != 4 or tokens[2] != "GOTO":
+            raise ValueError(f"Line {line}: use IF symbol GOTO label")
+        check_symbol(tokens[1], line)
+        instruction['symbol'] = tokens[1]
+        instruction['target'] = tokens[3]
 
     else:
         raise ValueError(f"Line {line}: unknown instruction '{op}'")
@@ -100,4 +107,11 @@ if __name__ == "__main__":
         print(e) #line 3: unknown instruction 'Right'
 
     print(check_instruction({"line": 7, "label": None, "tokens": ["WRITE", "1"]}))
+
+    print(check_instruction({"line": 4, "label": None, "tokens": ["IF", "_", "GOTO", "end"]}))
+
+    try:
+        check_instruction({"line": 6, "label": None, "tokens": ["IF", "_", "GOTO"]}) #error kay 3 ra kabuok walay label
+    except ValueError as e:
+        print(e) #line 6: unknown instruction 'IF _ GOTO' walay label s
 
