@@ -86,16 +86,17 @@ def checked_step(machine):
         raise ValueError("Machine has already finished executing. Reset first")
     if machine["pc"] >= len(machine["instructions"]):
         machine["status"] = "ERROR"
-        raise ValueError("Program counter out of bounds")
         return
     if machine["steps"] >= machine["step_limit"]:
         machine["status"] = "LIMIT REACHED"
         raise ValueError("Step limit reached")
         return
-        step(machine)
+    step(machine)
 
 def run(machine):
     # Run the machine until it finishes executing
+    if is_finished(machine):
+        raise ValueError("Machine has already finished executing. Reset first")
     while not is_finished(machine):
         checked_step(machine)
     
