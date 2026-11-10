@@ -40,7 +40,20 @@ def do_write(machine, symbol):
     write_cell(machine["tape"], machine["head"], symbol)
     machine["pc"] = machine["pc"] + 1
 
+def do_goto(machine, target):
+    # GOTOT label, jump sa label
+    machine["pc"] = machine["labels"][target]
 
+def do_if(machine, symbol, target):
+    # IF symbol GOTO label, jump sa label if the current cell matches the symbol
+    if read_cell(machine["tape"], machine["head"]) == symbol:
+        machine["pc"] = machine["labels"][target]
+    else:
+        machine["pc"] = machine["pc"] + 1
+
+def do_halt(machine):
+    # HALT, stop the machine
+    machine["status"] = "HALTED"
 
 # Testing
 
