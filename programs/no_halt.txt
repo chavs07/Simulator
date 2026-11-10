@@ -1,0 +1,4 @@
+loop: IF _ GOTO stop
+      RIGHT
+      GOTO loop
+stop: WRITE 1

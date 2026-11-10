@@ -75,6 +75,30 @@ def step(machine):
     
     machine["steps"] = machine["steps"] + 1
 
+def is_finished(machine):
+    # Check if the machine has finished executing 
+    status = machine["status"]
+    return status == "HALTED" or status == "ERROR" or status == "LIMIt REACHED"
+
+def checked_step(machine):
+    # I check ang machine before executing
+    if is_finished(machine):
+        raise ValueError("Machine has already finished executing. Reset first")
+    if machine["pc"] >= len(machine["instructions"]):
+        machine["status"] = "ERROR"
+        raise ValueError("Program counter out of bounds")
+        return
+    if machine["steps"] >= machine["step_limit"]:
+        machine["status"] = "LIMIT REACHED"
+        raise ValueError("Step limit reached")
+        return
+        step(machine)
+
+def run(machine):
+    # Run the machine until it finishes executing
+    while not is_finished(machine):
+        checked_step(machine)
+    
 
 # Testing
 
@@ -105,3 +129,14 @@ if __name__ == "__main__":
     for i in range(12):
         step(m)
         print(m["steps"], m["pc"], m["head"], m["tape"], m["status"])
+
+    print("\n--- run ---")
+    m = make_machine(instructions, labels, "101", 100)
+    run(m)
+    print(m["tape"], m["head"], m["pc"], m["steps"], m["status"])
+
+    print("\n--- Run the file that no stop---")
+    instructions, labels = parse_program("programs/no_halt.txt")
+    m = make_machine(instructions, labels, "10", 100)
+    run(m)
+    print(m["steps"], m["tape"], m["status"])
