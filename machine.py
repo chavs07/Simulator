@@ -89,7 +89,6 @@ def checked_step(machine):
         return
     if machine["steps"] >= machine["step_limit"]:
         machine["status"] = "LIMIT REACHED"
-        raise ValueError("Step limit reached")
         return
     step(machine)
 
