@@ -1,6 +1,6 @@
 "Ang state, execute sa mga commands/run"
 
-from tape import make_tape
+from tape import make_tape, read_cell, write_cell
 
 def reset(machine):
     # Reset the machine state to initial values. head 0, pc 0, steps 0
@@ -24,7 +24,22 @@ def make_machine(instructions, labels, input_text, step_limit):
     reset(machine)
     return machine
 
-    
+def do_left(machine):
+    # Move pa left, stay if naa na sa cell 0 (one way tape)
+    if machine["head"] > 0:
+        machine["head"] = machine["head"] - 1)    
+    machine["pc"] = machine["pc"] + 1
+
+def do_right(machine):
+    # Move pa right
+    machine["head"] = machine["head"] + 1
+    machine["pc"] = machine["pc"] + 1
+
+def do_write(machine, symbol):
+    # Write the symbol to the current cell
+    write_cell(machine["tape"], machine["head"], symbol)
+    machine["pc"] = machine["pc"] + 1
+
 
 
 # Testing
