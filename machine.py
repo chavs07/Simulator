@@ -27,7 +27,7 @@ def make_machine(instructions, labels, input_text, step_limit):
 def do_left(machine):
     # Move pa left, stay if naa na sa cell 0 (one way tape)
     if machine["head"] > 0:
-        machine["head"] = machine["head"] - 1)    
+        machine["head"] = machine["head"] - 1
     machine["pc"] = machine["pc"] + 1
 
 def do_right(machine):
