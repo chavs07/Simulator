@@ -55,6 +55,27 @@ def do_halt(machine):
     # HALT, stop the machine
     machine["status"] = "HALTED"
 
+def step(machine):
+    # Execute and usa ka instruction based on the current program counter
+    instruction = machine["instructions"][machine["pc"]]
+    op = instruction["op"]
+
+    if op == "LEFT":
+        do_left(machine)
+    elif op == "RIGHT":
+        do_right(machine)
+    elif op == "WRITE":
+        do_write(machine, instruction["symbol"])
+    elif op == "GOTO":
+        do_goto(machine, instruction["target"])
+    elif op == "IF":
+        do_if(machine, instruction["symbol"], instruction["target"])
+    elif op == "HALT":
+        do_halt(machine)
+    
+    machine["steps"] = machine["steps"] + 1
+
+
 # Testing
 
 if __name__ == "__main__":
@@ -78,3 +99,9 @@ if __name__ == "__main__":
         make_machine(instructions, labels, "101", 0)
     except ValueError as e:
         print(e)                # Step limit must be a positive number
+
+    print("\n--- do_step ---")
+    m = make_machine(instructions, labels, "101", 100)
+    for i in range(12):
+        step(m)
+        print(m["steps"], m["pc"], m["head"], m["tape"], m["status"])
