@@ -32,7 +32,7 @@ def parse_lines(lines):
 def check_symbol(symbol, line):
     # I check if ang symbol is valid / must 1 letter
     if len(symbol) != 1:
-        raise ValueError(f"Line{line}: symbol must be one character, got '{symbol}'")
+        raise ValueError(f"Line {line}: symbol must be one character, got '{symbol}'")
 
 def check_instruction(item):
     # E check ang usa ka line, i give ang intruction dict kung valid

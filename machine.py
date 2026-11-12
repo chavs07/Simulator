@@ -78,7 +78,7 @@ def step(machine):
 def is_finished(machine):
     # Check if the machine has finished executing 
     status = machine["status"]
-    return status == "HALTED" or status == "ERROR" or status == "LIMIt REACHED"
+    return status == "HALTED" or status == "ERROR" or status == "LIMIT REACHED"
 
 def checked_step(machine):
     # I check ang machine before executing
