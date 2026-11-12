@@ -12,7 +12,7 @@ def format_tape(tape, head):
         index_line = index_line + str(i).rjust(3)
         tape_line = tape_line + read_cell(tape, i).rjust(3)
         if i == head:
-            head_line = head_line + " ^ ".rjust(3)
+            head_line = head_line + "^".rjust(3)
         else:
             head_line = head_line + "   "
     return index_line + "\n" + tape_line + "\n" + head_line
