@@ -28,6 +28,25 @@ def format_instruction(ins):
     else:
         return op
 
+def describe_next(machine):
+    # Describe the next instruction to be executed
+    status = machine["status"]
+    if status == "HALTED":
+        return "Machine has halted"
+    if status == "ERROR":
+        return "Machine has encountered an error, no HALT instruction found"
+    if status == "LIMIT REACHED":
+        return f"Machine has reached the step limit of {machine['step_limit']}"
+    if machine["pc"] >= len(machine["instructions"]):
+        return "(end of the program)"
+    return format_instruction(machine["instructions"][machine["pc"]])
+
+def show_machine(machine):
+    # Print whole config
+    print(format_tape(machine["tape"], machine["head"]))
+    print(f"head={machine['head']} pc={machine['pc']} steps={machine['steps']}")
+    print("next: " + describe_next(machine))
+
 #Testing
 
 if __name__ == "__main__":
@@ -40,4 +59,20 @@ if __name__ == "__main__":
     print(format_tape([], 0))
     print()
 
+#format_instruction
     print(format_instruction({"op": "IF", "symbol": "_", "target": "append", "line": 4}))
+
+print(" - -  -showw machinee -- - -")
+from parser import parse_program
+from machine import make_machine, checked_step, run
+
+instruction, labels = parse_program("programs/append_one.txt")
+m = make_machine(instruction, labels, "101", 100)
+show_machine(m)
+print()
+checked_step(m)
+checked_step(m)
+show_machine(m)
+print()
+run(m)
+show_machine(m)
