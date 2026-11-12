@@ -17,6 +17,17 @@ def format_tape(tape, head):
             head_line = head_line + "   "
     return index_line + "\n" + tape_line + "\n" + head_line
 
+def format_instruction(ins):
+    op = ins["op"]
+    if op == "WRITE":
+        return "WRITE " + ins["symbol"] 
+    elif op == "GOTO":
+        return "GOTO " + ins["target"]
+    elif op == "IF":
+        return "IF " + ins["symbol"] + " GOTO " + ins["target"]
+    else:
+        return op
+
 #Testing
 
 if __name__ == "__main__":
@@ -27,3 +38,6 @@ if __name__ == "__main__":
     print(format_tape(["1", "0"], 4))
     print()
     print(format_tape([], 0))
+    print()
+
+    print(format_instruction({"op": "IF", "symbol": "_", "target": "append", "line": 4}))
