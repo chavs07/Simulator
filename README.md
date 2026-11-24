@@ -27,4 +27,5 @@
    Wrote and tested the code each step
    Ran sample program to test 
 
-  
+# Design
+Each file has one job
