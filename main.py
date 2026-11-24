@@ -34,9 +34,34 @@ def ask_limit():
             return int(text)
         print("Step limit must be a positive number")
 
-#Test
-if __name__ == "__main__":
+def main():
+    #Main menu
+    print("=== Turing Tape Simulator ===")
     instructions, labels = ask_program()
     input_text = ask_input()
     step_limit = ask_limit()
-    print (len(instructions), "instructions,", repr(input_text), ",", step_limit)
+    machine = make_machine(instructions, labels, input_text, step_limit)
+    show_machine(machine)
+
+    while True:
+        choice = input("\n [S]tep [R]un [X] Reset [Q]uit > ").strip().upper()
+        try:
+            if choice == "S":
+                checked_step(machine)
+                show_machine(machine)
+            elif choice == "R":
+                run(machine)
+                show_machine(machine)
+            elif choice == "X":
+                reset(machine)
+                show_machine(machine)
+            elif choice == "Q":
+                print ("Bye!")
+                break
+            else:
+                print("Unknown choice. Type S, R, X, or Q.")
+        except ValueError as e:
+            print(e)
+
+if __name__ == "__main__":
+    main()  
