@@ -62,17 +62,17 @@ if __name__ == "__main__":
 #format_instruction
     print(format_instruction({"op": "IF", "symbol": "_", "target": "append", "line": 4}))
 
-        print(" - -  -showw machinee -- - -")
-        from parser import parse_program
-        from machine import make_machine, checked_step, run
+    print(" - -  -showw machinee -- - -")
+    from parser import parse_program
+    from machine import make_machine, checked_step, run
 
-        instruction, labels = parse_program("programs/append_one.txt")
-        m = make_machine(instruction, labels, "101", 100)
-        show_machine(m)
-        print()
-        checked_step(m)
-        checked_step(m)
-        show_machine(m)
-        print()
-        run(m)
-        show_machine(m)
+    instruction, labels = parse_program("programs/append_one.txt")
+    m = make_machine(instruction, labels, "101", 100)
+    show_machine(m)
+    print()
+    checked_step(m)
+    checked_step(m)
+    show_machine(m)
+    print()
+    run(m)
+    show_machine(m)
