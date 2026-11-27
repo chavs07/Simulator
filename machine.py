@@ -11,7 +11,6 @@ def reset(machine):
     machine["status"] = "READY"
 
 def make_machine(instructions, labels, input_text, step_limit):
-
     # Create a new machine state with the given instructions, labels, input text, and step limit.
     if step_limit <= 0:
         raise ValueError("Step limit must be a positive number")

@@ -1,9 +1,9 @@
-START: IF 1 GOTO MARK
-IF 0 GOTO NEXT
-HALT
-NEXT: RIGHT
-GOTO START
-MARK: WRITE X
+START: IF 1 GOTO MARK           # 0
+IF 0 GOTO NEXT                  # 1
+HALT                            # 2
+NEXT: RIGHT                     # 3
+GOTO START                      # 4
+MARK: WRITE X                   # 5
 FIND_SEPARATOR: RIGHT
 IF _ GOTO ENTER_COUNT
 GOTO FIND_SEPARATOR

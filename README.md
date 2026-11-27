@@ -6,6 +6,8 @@
   - From the project folderr:
     python main.py
 
+  - Add text file to programs
+
   The simulator asks for three things:
   1. *Program file: path to program, for example 'programs/append_one.txt'
   2. *Input tape: the starting tape as text, for example '101'. Press enter with nothing types for an empty input.
@@ -22,7 +24,6 @@
 - What AI did
    Explained turing machines basics, and the Syntax of the functions
    Made step-by-step roadmap
-   Provided example code
 - What I did
    Wrote and tested the code each step
    Ran sample program to test 

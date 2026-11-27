@@ -28,20 +28,18 @@ if __name__ == "__main__":
     #make_tape test         
     print(make_tape("101"))
     print(make_tape(""))
+  # print(make_tape("1 23"))
 
+    print()
     #read cell
-    print(read_cell(['1', '0', '1'], 1))
-    print(read_cell([],0))
-
+    print(read_cell(['1', '0', '1'], 0))
+    
+    print()
     #write_cell 
     t = ['1', '0', '1']
     write_cell(t, 5, 'X')
     print(t) 
 
     t = ['1', '0', '1']
-    write_cell(t, 2, 'X')
-    print(t)
-
-    t = ['1', '0', '1']
-    write_cell(t, 0, BLANK)
+    write_cell(t, 1, BLANK)
     print(t)

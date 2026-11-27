@@ -48,31 +48,33 @@ def show_machine(machine):
     print("next: " + describe_next(machine))
 
 #Testing
-
 if __name__ == "__main__":
+    #format_tape
     print(format_tape(["1", "0", "1"], 0))
-    print()
+    print("========")
     print(format_tape(["1", "0", "1", "1"], 3))
-    print()
+    print("=========")
     print(format_tape(["1", "0"], 4))
-    print()
+    print("==========")
     print(format_tape([], 0))
+    print("========")
+
+    #format_instruction
+    print(format_instruction({"op": "IF", "symbol": "_", "target": "append", "line": 4}))
+    print(format_instruction({"op": "WRITE", "symbol": "1", "target": None, "line": 7}))
     print()
 
-#format_instruction
-    print(format_instruction({"op": "IF", "symbol": "_", "target": "append", "line": 4}))
-
-    print(" - -  -showw machinee -- - -")
+    print("======showw_machinee======")
     from parser import parse_program
     from machine import make_machine, checked_step, run
 
     instruction, labels = parse_program("programs/append_one.txt")
-    m = make_machine(instruction, labels, "101", 100)
+    m = make_machine(instruction, labels, "110", 20)
     show_machine(m)
-    print()
+    print("=============")
     checked_step(m)
     checked_step(m)
     show_machine(m)
-    print()
+    print("============")
     run(m)
     show_machine(m)

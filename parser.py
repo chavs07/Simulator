@@ -1,8 +1,8 @@
-"Read the program file/ validate if  valid"
+"Read the program file/ validate if  valid - turn text programm file into a valid format"
 
 def read_program_file(path):
     # I read ang program file, ehatag ang list sa lines
-    with open(path) as f:           #open the file
+    with open(path) as f:           
         return f.read().splitlines()
 
 def clean_line(line):
@@ -15,11 +15,11 @@ def split_label(text):
     tokens = text.split()
     if tokens[0].endswith(':'):
         label = tokens[0][:-1]  # remove the colon
-        return label, tokens[1:]  # return label and ang nabilin
+        return label, tokens[1:]  # return label and ang nabilin nga words
     return None, tokens
 
 def parse_lines(lines):
-    # Himuon ang mgs linya nga list sa dicts; laktawan and blank line and comment
+    # Himuon ang mgs linya into dicts; laktawan and blank line and comment
     result = []
     for number, line in enumerate(lines, start=1): #count line, from 1
         text = clean_line(line)
@@ -43,7 +43,10 @@ def check_instruction(item):
         raise ValueError(f"Line {line}: no instruction found")
     
     op = tokens[0]
-    instruction = {'op': op, "symbol": None, "target": None, "line": line}
+    instruction = {'op': op,
+                "symbol": None,
+                "target": None, 
+                "line": line}
 
     if op == "LEFT" or op == "RIGHT" or op == "HALT":
         if len(tokens) != 1:
@@ -72,7 +75,7 @@ def check_instruction(item):
     return instruction
 
 def build_labels(items):
-    # Himuon ang labels table, name sa label to index sa instruction
+    # Convert labels into instruction indexes, name sa label to index sa instruction
     labels = {}
     for index, item in enumerate(items):
         label = item['label']
@@ -108,42 +111,40 @@ def parse_program(path):
 
 # My testing
 if __name__ == "__main__":
+    # return string
     lines = read_program_file("programs/append_one.txt")
     for line in lines:
         print(line)
+    print("==================================")
 
     lines = read_program_file("programs/append_one.txt")
     for item in parse_lines(lines):
         print(item)
+    print("==================================")
 
-    print()
     # clean_line
     print(repr(clean_line("RIGHT  # move")))
-    print(repr(clean_line(" # comment only ")))
+    print(repr(clean_line(" # test comment only ")))
 
-    print()
+    print("==================================")
     # split_label
     print(split_label("start: RIGHT"))
     print(split_label("RIGHT"))
 
-    print()
+    print("==================================")
     # check_symbol
-    check_symbol("1", 2)
+    check_symbol("k", 1)
+    print("Pass")
     try:
-        check_symbol("10", 4)
+        check_symbol("14", 4)
     except ValueError as e:
         print(e)
 
-    print()
+    print("==================================")
     # check_instruction
     print(check_instruction({"line": 5, "label": None, "tokens": ["RIGHT"]}))
     # {'op': 'RIGHT', 'symbol': None, 'target': None, 'line': 5}
-
-    try:
-        check_instruction({"line": 3, "label": None, "tokens": ["Right"]})
-    except ValueError as e:
-        print(e) #line 3: unknown instruction 'Right'
-
+    print()
     print(check_instruction({"line": 7, "label": None, "tokens": ["WRITE", "1"]}))
 
     print(check_instruction({"line": 4, "label": None, "tokens": ["IF", "_", "GOTO", "end"]}))
@@ -151,26 +152,26 @@ if __name__ == "__main__":
     try:
         check_instruction({"line": 6, "label": None, "tokens": ["IF", "_", "GOTO"]}) #error kay 3 ra kabuok walay label
     except ValueError as e:
-        print(e) #line 6: unknown instruction 'IF _ GOTO' walay label s
+        print(e) #line 6: unknown instruction 'IF _ GOTO' walay label - GOTO label
 
-    print()
+    print("==================================")
     #build_labels
     items = parse_lines(read_program_file("programs/append_one.txt"))
     print(build_labels(items))
+    print("printed first testing build_label")
     try:
-        build_labels([{'line': 1, 'label': 'loop', 'tokens': ['RIGHT']},
-                  {'line': 2, 'label': 'loop', 'tokens': ['HALT']}])
+        build_labels([{'line': 1, 'label': 'sameLabel', 'tokens': ['RIGHT']},
+                    {'line': 2, 'label': 'sameLabel', 'tokens': ['HALT']}])
     except ValueError as e:
         print(e) #line 2: duplicate label 'loop'
+    print("===============")
 
     #check_targets
-
-    
     print("\n--- parse_program ---")
     instructions, labels = parse_program("programs/append_one.txt")
     for item in instructions:
-        print(item)
-    print(labels)
+        print(item, "this is item")
+    print(labels, "asa gekan and where to jump")
 
     try:
         parse_program("programs/bad_label.txt")
